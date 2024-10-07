@@ -17,16 +17,16 @@
 
 // Tested with the parts that have the height of 240 and 320
 #define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 320
+#define SCREEN_HEIGHT 320 		// Altered for Display Pack 2.0
 #define IMAGE_SIZE 256
 #define LOG_IMAGE_SIZE 8
 
-#define PIN_DIN 19
-#define PIN_CLK 18
-#define PIN_CS 17
+#define PIN_DIN 19				// Altered for Display Pack 2.0
+#define PIN_CLK 18				// Altered for Display Pack 2.0
+#define PIN_CS 17				// Altered for Display Pack 2.0
 #define PIN_DC 16
-#define PIN_RESET PIN_UNUSED
-#define PIN_BL 20
+#define PIN_RESET PIN_UNUSED	// Altered for Display Pack 2.0
+#define PIN_BL 20				// Altered for Display Pack 2.0
 
 #define SERIAL_CLK_DIV 1.f
 
@@ -94,15 +94,15 @@ int main() {
 
     gpio_init(PIN_CS);
     gpio_init(PIN_DC);
-    // gpio_init(PIN_RESET);
+    // gpio_init(PIN_RESET);				// Altered for Display Pack 2.0
     gpio_init(PIN_BL);
     gpio_set_dir(PIN_CS, GPIO_OUT);
     gpio_set_dir(PIN_DC, GPIO_OUT);
-    // gpio_set_dir(PIN_RESET, GPIO_OUT);
+    // gpio_set_dir(PIN_RESET, GPIO_OUT);	// Altered for Display Pack 2.0
     gpio_set_dir(PIN_BL, GPIO_OUT);
 
     gpio_put(PIN_CS, 1);
-    // gpio_put(PIN_RESET, 1);
+    // gpio_put(PIN_RESET, 1);				// Altered for Display Pack 2.0
     lcd_init(pio, sm, st7789_init_seq);
     gpio_put(PIN_BL, 1);
 
