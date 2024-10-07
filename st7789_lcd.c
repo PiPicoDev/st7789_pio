@@ -85,6 +85,18 @@ static inline void st7789_start_pixels(PIO pio, uint sm) {
 }
 
 int main() {
+    char fpsbuf[128]; 
+    // Safe buffer size for FPS string
+    int frame_counter;
+    // The frame number
+    uint64_t start, elapsed, frame; 
+    // Microsecond timers - used to calculate FPS
+    float fps;
+    // Want the FPS to a few DP so float
+
+    frame_counter = 0;
+    // Initialise frame counter
+
     stdio_init_all();
 
     PIO pio = pio0;
@@ -129,6 +141,11 @@ int main() {
 
     float theta = 0.f;
     float theta_max = 2.f * (float) M_PI;
+
+    start = time_us_64();
+    // Grab start time as close to main loop as possible
+    frame = start;
+
     while (1) {
         theta += 0.02f;
         if (theta > theta_max)
@@ -149,5 +166,15 @@ int main() {
                 st7789_lcd_put(pio, sm, colour & 0xff);
             }
         }
+
+    frame_counter++;
+    // Increment frame counter
+    elapsed = time_us_64();
+    // Grab frame time as late as possible
+    fps = (frame_counter / (float)(elapsed - start)) * 1000000;
+    // Calc FPS
+    printf("Frame #%d Time = %llu us, FPS = %5.2f\n", frame_counter, elapsed - frame, fps); 
+    frame = time_us_64();
+
     }
 }
